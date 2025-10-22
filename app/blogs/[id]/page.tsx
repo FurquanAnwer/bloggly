@@ -5,22 +5,22 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+import axios from 'axios'
 
 const page = ({ params }: { params: Promise<{ id: string }> }) =>{
     const [data,setData] = useState(null)
     const { id } = React.use(params); // ✅ unwrap params
 
-    const fetchData = ()=>{
-        for(let i=0;i<blog_data.length;i++){
-            if(Number(id)===blog_data[i].id){
-                setData(blog_data[i])
-                console.log(blog_data[i])
-                break
+    const fetchBlogData = ()=>{
+        const response = await axios.get('/api/blog',{
+            params:{
+                id:params.id
             }
-        }
+        })
+        setData(response.data)
     }
     useEffect(()=>{
-        fetchData()
+        fetchBlogData()
     },[])
 
     return (
@@ -38,7 +38,7 @@ const page = ({ params }: { params: Promise<{ id: string }> }) =>{
             </div>
             <div className='text-center my-24'>
                 <h1 className='text-2xl sm:text-5xl font-semibold max-w-[700px] mx-auto'>{data?.title}</h1>
-                <Image className='mx-auto mt-6 border border-white rounded-full' src={data?.author_img} width={60} height={60} alt="" />
+                <Image className='mx-auto mt-6 border border-white rounded-full' src={data?.authorImg} width={60} height={60} alt="" />
                 <p className='mt-1 pb-2 text-lg max-w-[740px] mx-auto'>{data?.author}</p>
             </div>
         </div>
