@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import {ConnectDB} from "@/lib/config/db"
 import { writeFile } from "fs/promises";
 
+const fs = require('fs')
+
 const LoadDB = async ()=>{
     await ConnectDB()
 }
@@ -49,3 +51,12 @@ export async function POST(request){
     
 }
 
+//API endpoint to delete the blog
+
+export async function DELETE(request){
+    const id = await request.nextUrl.searchParams.get('')
+    const blog = await BlogModel.findById(id)
+    fs.unlink(`./public${blog.image}`,()=>{})
+    await BlogModel.findByIdAndDelete(id) 
+    return NextResponse.json({msg:"Message Deleted"})
+}
