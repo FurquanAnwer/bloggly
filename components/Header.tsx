@@ -2,6 +2,7 @@ import Image from "next/image";
 import {assets} from '@/assets/assets'
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 const Header = () => {
     const [email,setEmail] = useState("")
