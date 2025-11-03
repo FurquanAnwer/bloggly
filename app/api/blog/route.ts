@@ -39,8 +39,8 @@ export async function POST(request){
     const imgUrl = `/${timeStamp}_${image.name}`
     const blogData = {
         title:`${formData.get('title')}`,
-        description:`${formData.get('category')}`,
-        category:`${formData.get('author')}`,
+        description:`${formData.get('description')}`,
+        category:`${formData.get('category')}`,
         author:`${formData.get('author')}`,
         image:`${imgUrl}`,
         authorImg:`${formData.get('authorImg')}`
