@@ -20,14 +20,14 @@ const BlogList = () => {
 
 
   return (
-    <div>
-        <div className="flex justify-center gap-6 my-10">
-            <button className={menu=== "All" ? "bg-black text-white py-1 px-4 rounded-sm" : ""} onClick={()=>setMenu('All')}>
+    <div className="bg-white">
+        <div className="flex justify-center gap-6 my-10 flex-wrap">
+            <button className={menu=== "All" ? "bg-emerald-600 text-white py-2 px-6 rounded-full font-semibold shadow-lg" : "text-emerald-400 py-2 px-6 rounded-full font-semibold hover:text-emerald-300 transition-colors"} onClick={()=>setMenu('All')}>
                 All 
             </button>   
-            <button onClick={()=>setMenu('Technology')} className={menu=== "Technology" ? "bg-black text-white py-1 px-4 rounded-sm" : ""}>Technology</button>
-            <button onClick={()=>setMenu('Startup')} className={menu=== "Startup" ? "bg-black text-white py-1 px-4 rounded-sm" : ""}>Startup</button> 
-            <button onClick={()=>setMenu('Lifestyle')} className={menu=== "Lifestyle" ? "bg-black text-white py-1 px-4 rounded-sm" : ""}>Lifestyle</button>         
+            <button onClick={()=>setMenu('Technology')} className={menu=== "Technology" ? "bg-emerald-600 text-white py-2 px-6 rounded-full font-semibold shadow-lg" : "text-emerald-900 py-2 px-6 rounded-full font-semibold hover:text-emerald-300 transition-colors"}>Technology</button>
+            <button onClick={()=>setMenu('Startup')} className={menu=== "Startup" ? "bg-emerald-600 text-white py-2 px-6 rounded-full font-semibold shadow-lg" : "text-emerald-900 py-2 px-6 rounded-full font-semibold hover:text-emerald-300 transition-colors"}>Startup</button> 
+            <button onClick={()=>setMenu('Lifestyle')} className={menu=== "Lifestyle" ? "bg-emerald-600 text-white py-2 px-6 rounded-full font-semibold shadow-lg" : "text-emerald-900 py-2 px-6 rounded-full font-semibold hover:text-emerald-300 transition-colors"}>Lifestyle</button>         
         </div>
         <div className="flex flex-wrap justify-around gap-1 gap-y-10 mb-16 xl:mx-24">
             {blogs.filter((item)=>menu==="All"?true:item.category===menu).map((item,index)=>(
