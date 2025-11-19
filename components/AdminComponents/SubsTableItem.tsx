@@ -1,6 +1,14 @@
 import React from "react";
 
-const SubsTableItem = ({email,mongoId,date,deleteEmail}) =>{
+
+interface SubsTableItemTypes {
+  mongoId: string;
+  email: string;
+  date: string;
+  deleteEmail: (id: string) => void;
+}
+
+const SubsTableItem = ({email,mongoId,date,deleteEmail}:SubsTableItemTypes) =>{
 
     const emailDate = new Date(date)
 

@@ -5,15 +5,23 @@ import axios from "axios"
 import React, { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
-const page = () =>{
+interface BlogItemTypes {
+  _id: string;
+  title: string;
+  author: string;
+  authorImg: string;
+  date: string;
+}
 
-    const [blogs,setBlogs] = useState([])
+const Page = () =>{
+
+    const [blogs,setBlogs] = useState<BlogItemTypes[]>([])
     const fetchBlogs = async ()=>{
         const response = await axios.get('/api/blog')
         setBlogs(response.data.blogs)
     }
 
-    const deleteBlog = async (mongoId)=>{
+    const deleteBlog = async (mongoId:string)=>{
         const response = await axios.delete('/api/blog',{
             params:{
                 id:mongoId
@@ -61,4 +69,4 @@ const page = () =>{
     )
 }
 
-export default page
+export default Page

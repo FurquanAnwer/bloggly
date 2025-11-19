@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Page = () => {
-    const [image,setImage] = useState(false)
+    const [image,setImage] = useState<File|null>(null)
     const [data,setData] = useState({
         title:"",
         description:"",
@@ -15,38 +15,45 @@ const Page = () => {
         authorImg:"/author_img.png"
     })
 
-    const onChangeHandler = (event)=>{
+    const onChangeHandler = (event:React.ChangeEvent<HTMLTextAreaElement>|React.ChangeEvent<HTMLInputElement>|React.ChangeEvent<HTMLSelectElement>)=>{
         const name = event.target.name;
         const value = event.target.value;
         setData(data=>({...data,[name]:value}))
     }
 
-    const onSubmitHandler = async (e) =>{
-        e.preventDefault()
-        const formData = new FormData()
-        formData.append('title',data.title)
-        formData.append('description',data.description)
-        formData.append('category',data.category)
-        formData.append('author',data.author)
-        formData.append('authorImg',data.authorImg)
-        formData.append('image',image)
-        const response = await axios.post('/api/blog',formData)
-        if(response.data.success){
-            toast.success(response.data.msg)
-            setImage(false)
-            setData({
-                title:"",
-                description:"",
-                category:"Startup",
-                author:"Alex Bennett",
-                authorImg:"/author_img.png"
-            })
-        }
-        else{
-            toast.error("Error")
-        }        
+  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("description", data.description);
+    formData.append("category", data.category);
+    formData.append("author", data.author);
+    formData.append("authorImg", data.authorImg);
+
+    if (image) {
+      formData.append("image", image);
     }
+
+    const response = await axios.post("/api/blog", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    if (response.data.success) {
+      toast.success(response.data.msg);
+
+      setImage(null);
+      setData({
+        title: "",
+        description: "",
+        category: "Startup",
+        author: "Alex Bennett",
+        authorImg: "/author_img.png",
+      });
+    } else {
+      toast.error("Error");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50">
@@ -62,7 +69,7 @@ const Page = () => {
             <div className="relative cursor-pointer group">
               <Image 
                 className="rounded-lg transition-all duration-300 group-hover:shadow-lg" 
-                src={!image?assets.upload_area:URL.createObjectURL(image) || "/placeholder.svg"} 
+                src={image ? URL.createObjectURL(image) : assets.upload_area}
                 width={200} 
                 height={200}
                 alt="Blog thumbnail"
@@ -70,7 +77,7 @@ const Page = () => {
               <div className="absolute inset-0 rounded-lg bg-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
           </label>
-          <input onChange={(e)=>setImage(e.target.files[0])} type="file" id='image' hidden required />            
+          <input onChange={(e)=>setImage(e.target.files?.[0] || null)} type="file" id='image' hidden required />            
         </div>
 
         <div className="bg-white rounded-xl p-8 shadow-sm border border-emerald-100">

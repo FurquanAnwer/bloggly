@@ -5,16 +5,22 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const page = () => {
+interface EmailItem {
+  _id: string;
+  email: string;
+  date: string;
+}
 
-  const [emails,setEmails] = useState([])
+const Page = () => {
+
+  const [emails,setEmails] = useState<EmailItem[]>([])
 
   const fetchEmails = async ()=>{
     const response = await axios.get('/api/email')
     setEmails(response.data.emails)
   }
 
-  const deleteEmail = async (mongoId)=>{
+  const deleteEmail = async (mongoId:string)=>{
     const response = await axios.delete('/api/email',{
       params:{
         id:mongoId
@@ -64,4 +70,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

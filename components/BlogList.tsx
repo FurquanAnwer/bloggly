@@ -3,10 +3,18 @@ import BlogItem from "./BlogItem";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+interface BlogsTypes{
+    _id:string;
+    image:string;
+    title:string;
+    description:string;
+    category:string;
+}
+
 const BlogList = () => {
   
     const [menu,setMenu] = useState("All")
-    const [blogs,setBlogs] = useState([])
+    const [blogs,setBlogs] = useState<BlogsTypes[]>([])
 
     const fetchBlogs = async () =>{
         const response = await axios.get('/api/blog')

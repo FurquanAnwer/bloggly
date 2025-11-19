@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Header = () => {
     const [email,setEmail] = useState("")
-    const onSubmitHandler = async (e) =>{
+    const onSubmitHandler = async (e:React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
         const formData = new FormData()
         formData.append("email",email)

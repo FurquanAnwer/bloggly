@@ -1,10 +1,11 @@
 import { assets } from "@/assets/assets";
 import Sidebar from "@/components/AdminComponents/Sidebar";
 import Image from "next/image";
+import React from "react";
 import { ToastContainer, toast } from 'react-toastify';
 
 
-export default function Layout({children}){
+export default function Layout({children}:{children:React.ReactNode}){
     return(
         <>
             <div className="flex"> 

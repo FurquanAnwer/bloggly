@@ -1,13 +1,22 @@
 import React from "react";
 import Image from "next/image";
 import { assets } from "@/assets/assets";
+import { mongo } from "mongoose";
 
-const BlogTableItem = ({authorImg,title,author,date,deleteBlog,mongoId}) =>{
+interface BlogTableItemTypes {
+    authorImg:string;
+    title:string;
+    author:string;
+    date: string;
+    deleteBlog:(id:string)=>void;
+    mongoId:string;
+}
+const BlogTableItem = ({authorImg,title,author,date,deleteBlog,mongoId}:BlogTableItemTypes) =>{
     const BlogDate = new Date(date)
     return (
         <tr className="bg-slate-800 border-b border-emerald-700 hover:bg-slate-700 transition-colors">
             <th scope="row" className="items-center gap-3 hidden sm:flex px-6 py-4 font-medium text-white whitespace-nowrap">
-                <Image width={40} height={40} src={authorImg?authorImg:assets.profile_icon || "/placeholder.svg"} className="rounded-full" />
+                <Image width={40} height={40} src={authorImg?authorImg:assets.profile_icon || "/placeholder.svg"} className="rounded-full" alt=""/>
                 <p>{author?author:"No author"}</p>
             </th>
             <td className="px-6 py-4 text-emerald-100">

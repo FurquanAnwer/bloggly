@@ -2,7 +2,14 @@ import Image from "next/image";
 import { assets, blog_data } from "@/assets/assets";
 import Link from "next/link";
 
-const BlogItem = ({title,description,category,image,id}) => {
+interface BlogItemTypes{
+    title:string;
+    description:string;
+    category:string;
+    image:string;
+    id:string;
+}
+const BlogItem = ({title,description,category,image,id}:BlogItemTypes) => {
   return (
     <div className="max-w-[330px] sm:max-w-[300px] bg-slate-800 border border-emerald-700 overflow-hidden hover:shadow-[-7px_7px_0px_rgba(16,185,129,0.5)] transition-all duration-300">
         <Link href={`/blogs/${id}`}>
